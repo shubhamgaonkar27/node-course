@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <meta charset="utf-8">
+        <title>
+            start page
+        </title>
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="customersCtrl"> 
+        <h1>{{test}} page</h1>
+        <p>this is test page</p>
+        <button ng-click="alert()">Click</button>
+        <button ng-click="submit()">submit</button>
+        </div>
+    </body>
+</html>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+   $scope.test='hello';
+   $scope.alert = function(){
+       alert('hello js');
+   };
+   $scope.submit = function(){
+        var params = ({val: 0,name:"hello"});
+                
+                $http({
+                    url: "./app",
+                    method: "POST",
+                    data: params,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                }).success(function (data, webStatus, headers, config){
+                     alert(data);
+
+                }).error(function (data, status, headers, config) {
+                    
+                    console.log("Error occured in http request:" + data);
+                    
+                });
+   };
+});
+</script>
